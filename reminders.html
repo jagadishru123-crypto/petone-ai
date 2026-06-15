@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+```
+<title>Reminders - PetOne AI</title>
+
+<link rel="stylesheet" href="/static/style.css">
+```
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+```
+<div class="logo">
+    🐾
+</div>
+
+<h2>PetOne AI</h2>
+
+<a href="/" class="menu-btn white-btn">
+    💬 AI Chat
+</a>
+
+<a href="/mypets" class="menu-btn pink-btn">
+    🐾 My Pets
+</a>
+
+<a href="/tasks" class="menu-btn white-btn">
+    📋 Tasks
+</a>
+
+<a href="/health" class="menu-btn white-btn">
+    🏥 Health
+</a>
+
+<a href="/vet" class="menu-btn white-btn">
+    👨‍⚕️ Vet Visits
+</a>
+
+<a href="/reminders" class="menu-btn white-btn">
+    🔔 Reminders
+</a>
+
+<a href="/addreminder" class="menu-btn pink-btn">
+    ➕ Add Reminder
+</a>
+```
+
+</div>
+
+<div class="main">
+
+```
+<h1 class="page-title">
+    🔔 Reminder Dashboard
+</h1>
+
+{% if reminders %}
+
+<div class="pet-container">
+
+    {% for reminder in reminders %}
+
+    <div class="pet-card">
+
+        <div class="pet-avatar">
+            🔔
+        </div>
+
+        <div class="pet-info">
+
+            <p>
+                <b>Type:</b>
+                {{ reminder.reminder_type }}
+            </p>
+
+            <p>
+                <b>Title:</b>
+                {{ reminder.title }}
+            </p>
+
+            <p>
+                <b>Date:</b>
+                {{ reminder.reminder_date }}
+            </p>
+
+            <p>
+                <b>Status:</b>
+                {{ reminder.status }}
+            </p>
+
+            <p>
+                <b>Notes:</b>
+                {{ reminder.notes }}
+            </p>
+
+        </div>
+
+        {% if reminder.status == "Pending" %}
+
+        <a href="/complete_reminder/{{ reminder.id }}">
+            <button class="save-btn">
+                ✅ Mark Completed
+            </button>
+        </a>
+
+        {% else %}
+
+        <button class="save-btn">
+            ✔ Completed
+        </button>
+
+        {% endif %}
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="welcome-card">
+
+    <h2>
+        No Reminders Yet
+    </h2>
+
+    <br>
+
+    <p>
+        Create your first reminder.
+    </p>
+
+    <br>
+
+    <a href="/addreminder">
+
+        <button class="save-btn">
+            ➕ Add Reminder
+        </button>
+
+    </a>
+
+</div>
+
+{% endif %}
+```
+
+</div>
+
+</body>
+
+</html>

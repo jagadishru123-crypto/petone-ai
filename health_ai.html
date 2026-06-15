@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetOne AI - Health Assistant</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff5f5; /* Pale pink tint background */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 25px;
+            margin-top: 20px;
+            border: 1px solid #ffe4e6;
+        }
+
+        h1 {
+            color: #d81b60; /* Stylish dark pink */
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        textarea {
+            flex: 1;
+            height: 60px;
+            padding: 12px;
+            border: 2px solid #fbcfe8;
+            border-radius: 10px;
+            resize: none;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        textarea:focus {
+            border-color: #f472b6;
+        }
+
+        button {
+            background-color: #ec4899; /* Pink primary button */
+            color: white;
+            border: none;
+            padding: 0 25px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #db2777;
+        }
+
+        /* The Output Box Styling */
+        #response-container {
+            background-color: #ffffff;
+            border-left: 5px solid #ec4899;
+            padding: 20px;
+            border-radius: 4px 12px 12px 4px;
+            min-height: 100px;
+            display: none; /* Hidden until content arrives */
+        }
+
+        /* Clean Markdown Spacing Classes */
+        .ai-content {
+            line-height: 1.7;
+            font-size: 16px;
+            color: #374151;
+        }
+
+        .ai-content h2, .ai-content h3 {
+            color: #9d174d;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .ai-content ul, .ai-content ol {
+            padding-left: 24px;
+            margin-bottom: 15px;
+        }
+
+        .ai-content li {
+            margin-bottom: 10px; /* Generous spacing between points */
+        }
+
+        .loading-spinner {
+            text-align: center;
+            color: #db2777;
+            font-weight: bold;
+            display: none;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🐾 PetOne AI Health Diagnostics</h1>
+        
+        <div class="input-group">
+            <textarea id="symptoms-input" placeholder="Describe symptoms or ask health questions (e.g., My cat is sneezing and warm...)"></textarea>
+            <button id="analyze-btn" onclick="sendToAI()">Analyze</button>
+        </div>
+
+        <div id="loading" class="loading-spinner">Analyzing health signs... Please wait 🩺</div>
+
+        <div id="response-container">
+            <div id="ai-response-box" class="ai-content"></div>
+        </div>
+    </div>
+
+    <script>
+        function sendToAI() {
+            const inputField = document.getElementById('symptoms-input');
+            const responseContainer = document.getElementById('response-container');
+            const responseBox = document.getElementById('ai-response-box');
+            const loadingText = document.getElementById('loading');
+            
+            const textValue = inputField.value.trim();
+            
+            if (!textValue) {
+                alert("Please enter some symptoms first!");
+                return;
+            }
+
+            // UI updates for loading state
+            loadingText.style.display = 'block';
+            responseContainer.style.display = 'none';
+            responseBox.innerHTML = '';
+
+            // Sending POST request to backend Flask server
+            fetch('/analyze_health', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ symptoms: textValue })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Server responded with an error status.");
+                }
+                return response.json();
+            })
+            .then(data => {
+                loadingText.style.display = 'none';
+                responseContainer.style.display = 'block';
+                
+                if (data.answer) {
+                    // This converts the raw Markdown response text to beautiful HTML tags
+                    responseBox.innerHTML = marked.parse(data.answer);
+                } else {
+                    responseBox.innerHTML = "⚠️ No response data was received.";
+                }
+            })
+            .catch(error => {
+                loadingText.style.display = 'none';
+                responseContainer.style.display = 'block';
+                responseBox.innerHTML = "❌ Could not reach the server. Make sure app.py is running without errors in your terminal.";
+                console.error('Error details:', error);
+            });
+        }
+    </script>
+</body>
+</html>

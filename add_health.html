@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Add Health Record - PetOne AI</title>
+
+<link rel="stylesheet"
+      href="/static/style.css">
+```
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+```
+<div class="logo">
+    🐾
+</div>
+
+<h2>PetOne AI</h2>
+
+<a href="/" class="menu-btn white-btn">
+    💬 AI Chat
+</a>
+
+<a href="/mypets" class="menu-btn pink-btn">
+    🐾 My Pets
+</a>
+
+<a href="/tasks" class="menu-btn white-btn">
+    📋 Tasks
+</a>
+
+<a href="/health" class="menu-btn white-btn">
+    🏥 Health
+</a>
+
+<a href="/addhealth" class="menu-btn pink-btn">
+    ➕ Health Record
+</a>
+```
+
+</div>
+
+<div class="main">
+
+```
+<div class="addpet-container">
+
+    <div class="pet-header">
+
+        <div class="pet-avatar">
+            🏥
+        </div>
+
+        <h1>
+            Add Health Record
+        </h1>
+
+        <p>
+            Track your pet's health information
+        </p>
+
+    </div>
+
+    <div class="pet-card">
+
+        <form method="POST">
+
+            <div class="pet-grid">
+
+                <div class="field">
+
+                    <label>
+                        🐾 Select Pet
+                    </label>
+
+                    <select
+                        name="pet_id"
+                        required
+                    >
+
+                        {% for pet in pets %}
+
+                        <option value="{{ pet.id }}">
+                            {{ pet.pet_name }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                <div class="field">
+
+                    <label>
+                        ⚖ Weight
+                    </label>
+
+                    <input
+                        type="text"
+                        name="weight"
+                        placeholder="e.g. 15 kg"
+                        required
+                    >
+
+                </div>
+
+                <div class="field">
+
+                    <label>
+                        🌡 Temperature
+                    </label>
+
+                    <input
+                        type="text"
+                        name="temperature"
+                        placeholder="e.g. 38.5°C"
+                        required
+                    >
+
+                </div>
+
+                <div class="field">
+
+                    <label>
+                        ❤️ Health Status
+                    </label>
+
+                    <select
+                        name="health_status"
+                        required
+                    >
+
+                        <option>
+                            Healthy
+                        </option>
+
+                        <option>
+                            Under Treatment
+                        </option>
+
+                        <option>
+                            Recovering
+                        </option>
+
+                        <option>
+                            Critical
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="field full-width">
+
+                    <label>
+                        🤧 Allergies
+                    </label>
+
+                    <textarea
+                        name="allergies"
+                        rows="3"
+                    ></textarea>
+
+                </div>
+
+                <div class="field full-width">
+
+                    <label>
+                        💊 Medicines
+                    </label>
+
+                    <textarea
+                        name="medicines"
+                        rows="3"
+                    ></textarea>
+
+                </div>
+
+                <div class="field full-width">
+
+                    <label>
+                        📝 Notes
+                    </label>
+
+                    <textarea
+                        name="notes"
+                        rows="5"
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+            <button
+                type="submit"
+                class="save-btn"
+            >
+                💾 Save Health Record
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+</body>
+
+</html>

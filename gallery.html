@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+```
+<title>Pet Gallery - PetOne AI</title>
+
+<link rel="stylesheet" href="/static/style.css">
+```
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+```
+<div class="logo">
+    🐾
+</div>
+
+<h2>PetOne AI</h2>
+
+<a href="/" class="menu-btn white-btn">
+    💬 AI Chat
+</a>
+
+<a href="/mypets" class="menu-btn pink-btn">
+    🐾 My Pets
+</a>
+
+<a href="/gallery" class="menu-btn white-btn">
+    📸 Gallery
+</a>
+
+<a href="/addphoto" class="menu-btn pink-btn">
+    ➕ Add Photo
+</a>
+```
+
+</div>
+
+<div class="main">
+
+```
+<h1 class="page-title">
+    📸 Pet Gallery
+</h1>
+
+{% if photos %}
+
+<div class="pets-grid">
+
+    {% for photo in photos %}
+
+    <div class="pet-card">
+
+        <img
+            src="/static/uploads/{{ photo.image }}"
+            style="
+            width:100%;
+            height:250px;
+            object-fit:cover;
+            border-radius:15px;
+            "
+        >
+
+        <br><br>
+
+        <p>
+            <b>📝 Caption:</b>
+            {{ photo.caption }}
+        </p>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="welcome-card">
+
+    <h2>
+        No Photos Uploaded
+    </h2>
+
+    <br>
+
+    <p>
+        Upload your first pet photo.
+    </p>
+
+    <br>
+
+    <a href="/addphoto">
+
+        <button class="save-btn">
+            📸 Upload Photo
+        </button>
+
+    </a>
+
+</div>
+
+{% endif %}
+```
+
+</div>
+
+</body>
+
+</html>

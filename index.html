@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetOne AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <style>
+        /* Sidebar Logo Section with cursor pointer for full screen click */
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0 10px 0;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .sidebar-logo-img {
+            width: 160px;  
+            height: 160px; 
+            object-fit: contain;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+            cursor: pointer; /* Makes it obvious that it is clickable */
+            transition: transform 0.2s ease;
+        }
+
+        .sidebar-logo-img:hover {
+            transform: scale(1.03); /* Subtle pop on hover */
+        }
+
+        /* Full Screen Logo Modal Overlay Styles */
+        .image-modal-overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 9999; /* Sits completely on top of everything else */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85); /* Smooth dark background blur backdrop */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content-img {
+            max-width: 90%;
+            max-height: 85%;
+            object-fit: contain;
+            border-radius: 12px;
+            animation: zoomInEffect 0.25s ease-out;
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #ffffff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            user-select: none;
+        }
+
+        .close-modal-btn:hover {
+            color: #cbd5e1;
+        }
+
+        @keyframes zoomInEffect {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Container layout for the 4 diagnostic cards */
+        .ai-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        /* Base Card Design */
+        .ai-diagnostic-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            text-align: left;
+            border: 1px solid #f1f5f9;
+        }
+
+        /* Individual Color Theme Schemes */
+        .card-causes { border-top: 5px solid #3b82f6; background-color: #f0f6ff; }       
+        .card-home { border-top: 5px solid #10b981; background-color: #f0fdf4; }         
+        .card-warnings { border-top: 5px solid #f59e0b; background-color: #fffbeb; }     
+        .card-vet { border-top: 5px solid #ec4899; background-color: #fff5f5; grid-column: 1 / -1; } 
+
+        .card-title {
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .card-title.title-causes { color: #1e40af; }
+        .card-title.title-home { color: #065f46; }
+        .card-title.title-warnings { color: #92400e; }
+        .card-title.title-vet { color: #9d174d; }
+
+        .ai-cards-grid ul {
+            margin: 0;
+            padding-left: 18px;
+        }
+
+        .ai-cards-grid li {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+            color: #334155;
+        }
+
+        /* File Upload Preview Bar Container */
+        .file-preview-bar {
+            display: none; 
+            align-items: center;
+            gap: 10px;
+            background-color: #f1f5f9;
+            padding: 8px 14px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #475569;
+            width: fit-content;
+            border: 1px solid #e2e8f0;
+        }
+
+        .delete-file-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .delete-file-btn:hover {
+            background: #dc2626;
+        }
+    </style>
+</head>
+<body>
+
+<div id="logo-modal" class="image-modal-overlay" onclick="closeFullScreenLogo()">
+    <button class="close-modal-btn">&times;</button>
+    <img src="{{ url_for('static', filename='logo.png') }}" class="modal-content-img" alt="PetOne AI Logo Large" onclick="event.stopPropagation()">
+</div>
+
+<div class="sidebar">
+    <div class="logo">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="PetOne AI Logo" class="sidebar-logo-img" onclick="openFullScreenLogo()">
+    </div>
+    <h2>PetOne AI</h2>
+
+    <a href="/" class="menu-btn white-btn">💬 AI Chat</a>
+    <a href="/mypets" class="menu-btn pink-btn">🐾 My Pets</a>
+    <a href="/tasks" class="menu-btn white-btn">📋 Tasks</a>
+    <a href="/addpet" class="menu-btn pink-btn">➕ Add Pet</a>
+    <a href="/login" class="menu-btn white-btn">🔑 Login</a>
+    <a href="/signup" class="menu-btn pink-btn">📝 Sign Up</a>
+    <a href="/health" class="menu-btn white-btn">🏥 Health</a>
+    <a href="/addhealth" class="menu-btn pink-btn">➕ Health Record</a>
+    <a href="/vet" class="menu-btn white-btn">🏥 Vet Visits</a>
+    <a href="/addvet" class="menu-btn pink-btn">➕ Vet Visit</a>
+    <a href="/growth" class="menu-btn white-btn">📈 Growth Tracker</a>
+    <a href="/addgrowth" class="menu-btn pink-btn">➕ Add Growth</a>
+    <a href="/vaccines" class="menu-btn white-btn">💉 Vaccinations</a>
+    <a href="/timeline" class="menu-btn pink-btn">🕒 Timeline</a>
+    <a href="/birthdays" class="menu-btn white-btn">🎂 Birthdays</a>
+    <a href="/health_ai" class="menu-btn pink-btn">🩺 AI Health</a>
+</div>
+
+<div class="main">
+    <div id="chatbox">
+        <div class="welcome-card">
+            <h2>👋 Welcome to PetOne AI</h2>
+            <p>Ask anything about your dog, cat, bird, rabbit, fish or any pet.</p>
+        </div>
+    </div>
+
+    <div id="file-preview-container" class="file-preview-bar">
+        <span>📎 Attached: <strong id="preview-file-name">filename.jpg</strong></span>
+        <button type="button" class="delete-file-btn" onclick="clearSelectedFile()">×</button>
+    </div>
+
+    <div class="input-area">
+        <input type="file" id="file-input" style="display: none;" accept="image/*,video/*,.pdf,.doc,.docx" onchange="handleFileSelect(this)">
+        <button class="upload-btn" onclick="document.getElementById('file-input').click()">+</button>
+        <input type="text" id="question" placeholder="Ask anything about your pet...">
+        <button class="send-btn" onclick="sendQuestion()">➤</button>
+    </div>
+</div>
+
+<script>
+// Modal Overlay Actions
+function openFullScreenLogo() {
+    document.getElementById("logo-modal").style.display = "flex";
+}
+
+function closeFullScreenLogo() {
+    document.getElementById("logo-modal").style.display = "none";
+}
+
+let selectedFile = null;
+
+function handleFileSelect(inputElement) {
+    if (inputElement.files && inputElement.files[0]) {
+        selectedFile = inputElement.files[0];
+        document.getElementById("preview-file-name").innerText = selectedFile.name;
+        document.getElementById("file-preview-container").style.display = "flex";
+    }
+}
+
+function clearSelectedFile() {
+    selectedFile = null;
+    document.getElementById("file-input").value = "";
+    document.getElementById("file-preview-container").style.display = "none";
+    document.getElementById("preview-file-name").innerText = "";
+}
+
+function sendQuestion() {
+    let questionInput = document.getElementById("question");
+    let question = questionInput.value.trim();
+
+    if (question === "" && !selectedFile) return;
+
+    let chatbox = document.getElementById("chatbox");
+
+    if (question !== "") {
+        chatbox.innerHTML += `
+            <div class="user-message" style="background-color: #ffe4e6; padding: 10px; border-radius: 8px; margin: 5px 0; text-align: right;">
+                ${question}
+            </div>
+        `;
+    }
+
+    if (selectedFile) {
+        chatbox.innerHTML += `
+            <div class="user-message" style="background-color: #f1f5f9; padding: 10px; border-radius: 8px; margin: 5px 0; text-align: right; color: #475569;">
+                📁 Sent File: <strong>${selectedFile.name}</strong>
+            </div>
+        `;
+    }
+
+    questionInput.value = "";
+
+    let botMessageId = "bot-" + Date.now();
+    chatbox.innerHTML += `
+        <div class="bot-message" id="${botMessageId}" style="background-color: #f8fafc; padding: 10px; border-radius: 8px; margin: 5px 0;">
+            🔄 Working on your request...
+        </div>
+    `;
+    chatbox.scrollTop = chatbox.scrollHeight;
+
+    let formData = new FormData();
+    formData.append("question", question);
+    if (selectedFile) {
+        formData.append("file", selectedFile);
+    }
+
+    clearSelectedFile();
+
+    fetch("/ask", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        let targetBox = document.getElementById(botMessageId);
+
+        if (data.json_answer) {
+            try {
+                let petData = JSON.parse(data.json_answer);
+                
+                if (petData.response_type === "chat") {
+                    targetBox.style.backgroundColor = "#f8fafc";
+                    targetBox.style.padding = "14px";
+                    targetBox.style.borderRadius = "12px";
+                    targetBox.style.textAlign = "left";
+                    targetBox.style.lineHeight = "1.6";
+                    targetBox.style.color = "#1e293b";
+                    targetBox.innerHTML = petData.message;
+                } else {
+                    let causesHTML = petData.possible_causes.map(i => `<li>${i}</li>`).join('');
+                    let homeHTML = petData.home_care.map(i => `<li>${i}</li>`).join('');
+                    let warningsHTML = petData.warning_signs.map(i => `<li>${i}</li>`).join('');
+                    let vetHTML = petData.vet_advice.map(i => `<li>${i}</li>`).join('');
+
+                    targetBox.innerHTML = `
+                        <div class="ai-cards-grid">
+                            <div class="ai-diagnostic-card card-causes">
+                                <div class="card-title title-causes">🔍 1. Possible Causes</div>
+                                <ul>${causesHTML}</ul>
+                            </div>
+                            <div class="ai-diagnostic-card card-home">
+                                <div class="card-title title-home">🏡 2. Home Care Advice</div>
+                                <ul>${homeHTML}</ul>
+                            </div>
+                            <div class="ai-diagnostic-card card-warnings">
+                                <div class="card-title title-warnings">⚠️ 3. Warning Signs</div>
+                                <ul>${warningsHTML}</ul>
+                            </div>
+                            <div class="ai-diagnostic-card card-vet">
+                                <div class="card-title title-vet">🩺 4. When to Visit a Vet</div>
+                                <ul>${vetHTML}</ul>
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (err) {
+                targetBox.innerText = data.json_answer;
+            }
+        } else if (data.error) {
+            targetBox.innerText = "❌ Error: " + data.error;
+        } else {
+            targetBox.innerText = "⚠️ Something went wrong on the server.";
+        }
+        chatbox.scrollTop = chatbox.scrollHeight;
+    })
+    .catch(err => {
+        let targetBox = document.getElementById(botMessageId);
+        targetBox.innerText = "❌ System couldn't reach your Flask app.";
+    });
+}
+
+document.getElementById("question").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        sendQuestion();
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+```
+<title>Vet Visits - PetOne AI</title>
+
+<link rel="stylesheet" href="/static/style.css">
+```
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+```
+<div class="logo">
+    🐾
+</div>
+
+<h2>PetOne AI</h2>
+
+<a href="/" class="menu-btn white-btn">
+    💬 AI Chat
+</a>
+
+<a href="/mypets" class="menu-btn pink-btn">
+    🐾 My Pets
+</a>
+
+<a href="/tasks" class="menu-btn white-btn">
+    📋 Tasks
+</a>
+
+<a href="/health" class="menu-btn white-btn">
+    🏥 Health
+</a>
+
+<a href="/vet" class="menu-btn white-btn">
+    👨‍⚕️ Vet Visits
+</a>
+
+<a href="/addvet" class="menu-btn pink-btn">
+    ➕ Vet Visit
+</a>
+```
+
+</div>
+
+<div class="main">
+
+```
+<h1 class="page-title">
+    👨‍⚕️ Vet Visit Records
+</h1>
+
+{% if visits %}
+
+<div class="pet-container">
+
+    {% for visit in visits %}
+
+    <div class="pet-card">
+
+        <div class="pet-avatar">
+            👨‍⚕️
+        </div>
+
+        <div class="pet-info">
+
+            <p>
+                <b>📅 Visit Date:</b>
+                {{ visit.visit_date }}
+            </p>
+
+            <p>
+                <b>👨‍⚕️ Doctor:</b>
+                {{ visit.doctor_name }}
+            </p>
+
+            <p>
+                <b>💉 Vaccine:</b>
+                {{ visit.vaccine_name }}
+            </p>
+
+            <p>
+                <b>🤒 Reason:</b>
+                {{ visit.reason }}
+            </p>
+
+            <p>
+                <b>💊 Treatment:</b>
+                {{ visit.treatment }}
+            </p>
+
+            <p>
+                <b>📅 Next Visit:</b>
+                {{ visit.next_visit }}
+            </p>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="welcome-card">
+
+    <h2>
+        No Vet Visits Recorded
+    </h2>
+
+    <br>
+
+    <p>
+        Add your first vet visit record.
+    </p>
+
+    <br>
+
+    <a href="/addvet">
+
+        <button class="save-btn">
+
+            ➕ Add Vet Visit
+
+        </button>
+
+    </a>
+
+</div>
+
+{% endif %}
+```
+
+</div>
+
+</body>
+
+</html>

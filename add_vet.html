@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+```
+<title>Add Vet Visit - PetOne AI</title>
+
+<link rel="stylesheet" href="/static/style.css">
+```
+
+</head>
+
+<body>
+
+<div class="addpet-container">
+
+```
+<div class="pet-header">
+
+    <div class="pet-avatar">
+        🏥
+    </div>
+
+    <h1>Add Vet Visit</h1>
+
+    <p>
+        Record doctor visits and vaccinations
+    </p>
+
+</div>
+
+<div class="pet-card">
+
+    <form method="POST">
+
+        <div class="pet-grid">
+
+            <div class="field">
+
+                <label>
+                    🐾 Select Pet
+                </label>
+
+                <select
+                    name="pet_id"
+                    required
+                >
+
+                    {% for pet in pets %}
+
+                    <option value="{{ pet.id }}">
+                        {{ pet.pet_name }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    📅 Visit Date
+                </label>
+
+                <input
+                    type="date"
+                    name="visit_date"
+                    required
+                >
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    👨‍⚕️ Doctor Name
+                </label>
+
+                <input
+                    type="text"
+                    name="doctor_name"
+                    required
+                >
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    💉 Vaccine Name
+                </label>
+
+                <input
+                    type="text"
+                    name="vaccine_name"
+                >
+
+            </div>
+
+            <div class="field full-width">
+
+                <label>
+                    🤒 Reason for Visit
+                </label>
+
+                <textarea
+                    name="reason"
+                    rows="3"
+                ></textarea>
+
+            </div>
+
+            <div class="field full-width">
+
+                <label>
+                    💊 Treatment Given
+                </label>
+
+                <textarea
+                    name="treatment"
+                    rows="3"
+                ></textarea>
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    📅 Next Visit Date
+                </label>
+
+                <input
+                    type="date"
+                    name="next_visit"
+                >
+
+            </div>
+
+        </div>
+
+        <button
+            type="submit"
+            class="save-btn"
+        >
+            💾 Save Vet Record
+        </button>
+
+    </form>
+
+</div>
+```
+
+</div>
+
+</body>
+
+</html>

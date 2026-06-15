@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>My Pets - PetOne AI</title>
+
+<link rel="stylesheet"
+      href="/static/style.css">
+```
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+```
+<div class="logo">
+    🐾
+</div>
+
+<h2>PetOne AI</h2>
+
+<a href="/" class="menu-btn">
+    💬 AI Chat
+</a>
+
+<a href="/mypets" class="menu-btn">
+    🐾 My Pets
+</a>
+
+<a href="/addpet" class="menu-btn">
+    ➕ Add Pet
+</a>
+
+<a href="/tasks" class="menu-btn">
+    📋 Tasks
+</a>
+
+<a href="/addtask" class="menu-btn">
+    ✅ Add Task
+</a>
+<a href="/health" class="menu-btn white-btn">
+    🏥 Health
+</a>
+
+<a href="/addhealth" class="menu-btn pink-btn">
+    ➕ Health Record
+</a>
+<a href="/vet" class="menu-btn white-btn">
+    🏥 Vet Visits
+</a>
+
+<a href="/addvet" class="menu-btn pink-btn">
+    ➕ Vet Visit
+</a>
+```
+
+</div>
+
+<div class="main">
+
+```
+<h1 class="page-title">
+    🐾 My Pets
+</h1>
+
+{% if birthday_message %}
+
+<div class="birthday-box">
+
+    {{ birthday_message }}
+
+</div>
+
+{% endif %}
+
+{% if pets %}
+
+<div class="pet-container">
+
+    {% for pet in pets %}
+
+    <div class="pet-card">
+
+        {% if pet.photo %}
+
+        <img
+            src="/static/uploads/{{ pet.photo }}"
+            style="
+            width:120px;
+            height:120px;
+            border-radius:50%;
+            object-fit:cover;
+            display:block;
+            margin:auto;
+            margin-bottom:15px;
+            "
+        >
+
+        {% else %}
+
+        <div class="pet-avatar">
+            🐾
+        </div>
+
+        {% endif %}
+
+        <div class="pet-name">
+
+            {{ pet.pet_name }}
+
+        </div>
+
+        <div class="pet-info">
+
+            <p>
+                <b>🐶 Type:</b>
+                {{ pet.pet_type }}
+            </p>
+
+            <p>
+                <b>🧬 Breed:</b>
+                {{ pet.breed }}
+            </p>
+
+            <p>
+                <b>🎂 Age:</b>
+                {{ pet.age }}
+            </p>
+
+            <p>
+                <b>📅 DOB:</b>
+                {{ pet.dob }}
+            </p>
+
+            <p>
+                <b>💉 Vaccination:</b>
+                {{ pet.vaccination }}
+            </p>
+
+            <p>
+                <b>📆 Next Vaccine:</b>
+                {{ pet.next_vaccine_date }}
+            </p>
+
+        </div>
+
+        <div class="card-buttons">
+
+            <a
+                href="/editpet/{{ pet.id }}"
+                class="edit-btn"
+            >
+                ✏ Edit
+            </a>
+
+            <a
+                href="/deletepet/{{ pet.id }}"
+                class="delete-btn"
+                onclick="return confirm('Delete this pet?')"
+            >
+                🗑 Delete
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="empty-box">
+
+    <h2>
+        No Pets Added Yet
+    </h2>
+
+    <p>
+        Add your first pet profile.
+    </p>
+
+    <br>
+
+    <a href="/addpet">
+
+        <button class="save-btn">
+
+            ➕ Add First Pet
+
+        </button>
+
+    </a>
+
+</div>
+
+{% endif %}
+```
+
+</div>
+
+</body>
+
+</html>

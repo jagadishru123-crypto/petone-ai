@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Edit Pet - PetOne AI</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="addpet-container">
+
+    <div class="pet-header">
+
+        <div class="pet-avatar">
+            ✏️
+        </div>
+
+        <h1>Edit Pet</h1>
+
+        <p>
+            Update your pet information
+        </p>
+
+    </div>
+
+    <div class="pet-card">
+
+        <form
+            method="POST"
+            enctype="multipart/form-data"
+        >
+
+            <div class="pet-grid">
+
+                <div class="field">
+
+                    <label>🐾 Pet Name</label>
+
+                    <input
+                        type="text"
+                        name="pet_name"
+                        value="{{ pet.pet_name }}"
+                        required
+                    >
+
+                </div>
+
+                <div class="field">
+
+                    <label>🐶 Pet Type</label>
+
+                    <input
+                        type="text"
+                        name="pet_type"
+                        value="{{ pet.pet_type }}"
+                        required
+                    >
+
+                </div>
+
+                <div class="field">
+
+                    <label>🧬 Breed</label>
+
+                    <input
+                        type="text"
+                        name="breed"
+                        value="{{ pet.breed }}"
+                    >
+
+                </div>
+
+                <div class="field">
+
+                    <label>🎂 Age</label>
+
+                    <input
+                        type="text"
+                        name="age"
+                        value="{{ pet.age }}"
+                    >
+
+                </div>
+
+                <div class="field">
+
+                    <label>📅 Date of Birth</label>
+
+                    <input
+                        type="date"
+                        name="dob"
+                        value="{{ pet.dob }}"
+                        required
+                    >
+
+                </div>
+
+                <div class="field">
+
+                    <label>💊 Vaccination Name</label>
+
+                    <input
+                        type="text"
+                        name="vaccination"
+                        value="{{ pet.vaccination }}"
+                    >
+
+                </div>
+
+                <div class="field">
+
+                    <label>📅 Next Vaccine Date</label>
+
+                    <input
+                        type="date"
+                        name="next_vaccine_date"
+                        value="{{ pet.next_vaccine_date }}"
+                    >
+
+                </div>
+
+                <div class="field">
+
+                    <label>📸 New Pet Photo</label>
+
+                    <input
+                        type="file"
+                        name="photo"
+                        accept="image/*"
+                    >
+
+                </div>
+
+                <div class="field full-width">
+
+                    {% if pet.photo %}
+
+                    <img
+                        src="/static/uploads/{{ pet.photo }}"
+                        style="
+                        width:150px;
+                        height:150px;
+                        border-radius:50%;
+                        object-fit:cover;
+                        display:block;
+                        margin:auto;
+                        margin-bottom:20px;
+                        "
+                    >
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <button
+                type="submit"
+                class="save-btn"
+            >
+                💾 Save Changes
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

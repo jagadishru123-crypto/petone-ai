@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Vaccination Dashboard</title>
+
+<link rel="stylesheet"
+href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<div class="logo">
+🐾
+</div>
+
+<h2>PetOne AI</h2>
+
+<a href="/vaccines"
+class="menu-btn white-btn">
+
+💉 Vaccinations
+
+</a>
+
+<a href="/mypets"
+class="menu-btn pink-btn">
+
+🐾 My Pets
+
+</a>
+
+</div>
+
+<div class="main">
+
+<h1 class="page-title">
+
+💉 Vaccination Dashboard
+
+</h1>
+
+<div class="pets-grid">
+
+{% for pet in pets %}
+
+<div class="pet-card">
+
+{% if pet.photo %}
+
+<img
+src="/static/uploads/{{ pet.photo }}"
+style="
+width:120px;
+height:120px;
+object-fit:cover;
+border-radius:50%;
+display:block;
+margin:auto;
+"
+>
+
+<br>
+
+{% endif %}
+
+<h2>
+
+{{ pet.pet_name }}
+
+</h2>
+
+<p>
+
+💊 Vaccine:
+<b>{{ pet.vaccination }}</b>
+
+</p>
+
+{% if pet.next_vaccine_date %}
+
+<p>
+
+📅 Next Vaccine:
+<b>{{ pet.next_vaccine_date }}</b>
+
+</p>
+
+{% else %}
+
+<p>
+
+❌ No Vaccine Date
+
+</p>
+
+{% endif %}
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</body>
+
+</html>

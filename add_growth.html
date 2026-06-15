@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Add Growth Record</title>
+
+<link rel="stylesheet"
+href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="addpet-container">
+
+<h1>📈 Add Growth Record</h1>
+
+<form method="POST">
+
+<label>Select Pet</label>
+
+<select name="pet_id" required>
+
+{% for pet in pets %}
+
+<option value="{{ pet.id }}">
+{{ pet.pet_name }}
+</option>
+
+{% endfor %}
+
+</select>
+
+<br><br>
+
+<label>Weight (kg)</label>
+
+<input
+type="text"
+name="weight"
+required
+>
+
+<br><br>
+
+<label>Height (cm)</label>
+
+<input
+type="text"
+name="height"
+required
+>
+
+<br><br>
+
+<label>Record Date</label>
+
+<input
+type="date"
+name="record_date"
+required
+>
+
+<br><br>
+
+<label>Notes</label>
+
+<textarea
+name="notes"
+rows="4"
+></textarea>
+
+<br><br>
+
+<button
+type="submit"
+class="save-btn"
+>
+
+💾 Save Growth Record
+
+</button>
+
+</form>
+
+</div>
+
+</body>
+
+</html>

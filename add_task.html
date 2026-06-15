@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Add Task - PetOne AI</title>
+
+<link rel="stylesheet"
+      href="/static/style.css">
+```
+
+</head>
+
+<body>
+
+<div class="addpet-container">
+
+```
+<div class="pet-header">
+
+    <div class="pet-avatar">
+        📋
+    </div>
+
+    <h1>Add Pet Task</h1>
+
+    <p>
+        Create reminders for feeding, medicines, vaccines and vet visits
+    </p>
+
+</div>
+
+<div class="pet-card">
+
+    <form method="POST">
+
+        <div class="pet-grid">
+
+            <div class="field">
+
+                <label>
+                    🐾 Select Pet
+                </label>
+
+                <select name="pet_id" required>
+
+                    {% for pet in pets %}
+
+                    <option value="{{ pet.id }}">
+                        {{ pet.pet_name }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    📌 Task Type
+                </label>
+
+                <select name="task_type" required>
+
+                    <option value="Feeding">
+                        Feeding
+                    </option>
+
+                    <option value="Medicine">
+                        Medicine
+                    </option>
+
+                    <option value="Vaccination">
+                        Vaccination
+                    </option>
+
+                    <option value="Vet Visit">
+                        Vet Visit
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    📝 Task Title
+                </label>
+
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="Morning Feeding"
+                    required
+                >
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    📅 Due Date
+                </label>
+
+                <input
+                    type="date"
+                    name="due_date"
+                    required
+                >
+
+            </div>
+
+            <div class="field full-width">
+
+                <label>
+                    📖 Notes
+                </label>
+
+                <textarea
+                    name="notes"
+                    rows="5"
+                    placeholder="Extra instructions..."
+                ></textarea>
+
+            </div>
+
+        </div>
+
+        <button
+            type="submit"
+            class="save-btn"
+        >
+            ✅ Save Task
+        </button>
+
+    </form>
+
+</div>
+```
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Birthday Dashboard</title>
+
+<link rel="stylesheet"
+href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<h1 class="page-title">
+
+🎂 Birthday Dashboard
+
+</h1>
+
+<div class="pets-grid">
+
+{% for pet in pets %}
+
+<div class="pet-card">
+
+{% if pet.photo %}
+
+<img
+src="/static/uploads/{{ pet.photo }}"
+style="
+width:120px;
+height:120px;
+border-radius:50%;
+object-fit:cover;
+display:block;
+margin:auto;
+">
+
+<br>
+
+{% endif %}
+
+<h2>
+
+{{ pet.pet_name }}
+
+</h2>
+
+<p>
+
+🎂 DOB:
+{{ pet.dob }}
+
+</p>
+
+{% if pet.days_left == 0 %}
+
+<h3>
+
+🎉 Birthday Today!
+
+</h3>
+
+{% else %}
+
+<p>
+
+⏳ Days Left:
+{{ pet.days_left }}
+
+</p>
+
+{% endif %}
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</body>
+
+</html>

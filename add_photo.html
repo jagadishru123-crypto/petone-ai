@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+```
+<title>Add Photo - PetOne AI</title>
+
+<link rel="stylesheet" href="/static/style.css">
+```
+
+</head>
+
+<body>
+
+<div class="addpet-container">
+
+```
+<div class="pet-header">
+
+    <div class="pet-avatar">
+        📸
+    </div>
+
+    <h1>Add Pet Photo</h1>
+
+    <p>
+        Upload photos of your pet
+    </p>
+
+</div>
+
+<div class="pet-card">
+
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+    >
+
+        <div class="pet-grid">
+
+            <div class="field">
+
+                <label>
+                    🐾 Select Pet
+                </label>
+
+                <select
+                    name="pet_id"
+                    required
+                >
+
+                    {% for pet in pets %}
+
+                    <option value="{{ pet.id }}">
+                        {{ pet.pet_name }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    📸 Upload Photo
+                </label>
+
+                <input
+                    type="file"
+                    name="photo"
+                    accept="image/*"
+                    required
+                >
+
+            </div>
+
+            <div class="field full-width">
+
+                <label>
+                    📝 Caption
+                </label>
+
+                <input
+                    type="text"
+                    name="caption"
+                    placeholder="Birthday photo, Vet visit, Playing in park..."
+                >
+
+            </div>
+
+        </div>
+
+        <button
+            type="submit"
+            class="save-btn"
+        >
+            📸 Upload Photo
+        </button>
+
+    </form>
+
+</div>
+```
+
+</div>
+
+</body>
+
+</html>

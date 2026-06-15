@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Pet Tasks - PetOne AI</title>
+
+<link rel="stylesheet"
+      href="/static/style.css">
+```
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+```
+<div class="logo">
+    🐾
+</div>
+
+<h2>PetOne AI</h2>
+
+<a href="/" class="menu-btn">
+    💬 AI Chat
+</a>
+
+<a href="/mypets" class="menu-btn">
+    🐾 My Pets
+</a>
+
+<a href="/addpet" class="menu-btn">
+    ➕ Add Pet
+</a>
+
+<a href="/addtask" class="menu-btn">
+    📋 Add Task
+</a>
+<a href="/health" class="menu-btn white-btn">
+    🏥 Health
+</a>
+
+<a href="/addhealth" class="menu-btn pink-btn">
+    ➕ Health Record
+</a>
+<a href="/vet" class="menu-btn white-btn">
+    🏥 Vet Visits
+</a>
+
+<a href="/addvet" class="menu-btn pink-btn">
+    ➕ Vet Visit
+</a>
+```
+
+</div>
+
+<div class="main">
+
+```
+<h1 class="page-title">
+    📋 Pet Tasks
+</h1>
+
+{% if tasks %}
+
+<div class="pet-container">
+
+    {% for task in tasks %}
+
+    <div class="pet-card">
+
+        <div class="pet-avatar">
+
+            {% if task.task_type == "Feeding" %}
+            🍖
+            {% elif task.task_type == "Medicine" %}
+            💊
+            {% elif task.task_type == "Vaccination" %}
+            💉
+            {% else %}
+            🏥
+            {% endif %}
+
+        </div>
+
+        <div class="pet-name">
+
+            {{ task.title }}
+
+        </div>
+
+        <div class="pet-info">
+
+            <p>
+                <b>Type:</b>
+                {{ task.task_type }}
+            </p>
+
+            <p>
+                <b>Due Date:</b>
+                {{ task.due_date }}
+            </p>
+
+            <p>
+                <b>Status:</b>
+
+                {% if task.status == "Completed" %}
+
+                <span style="color:green;font-weight:bold;">
+                    ✅ Completed
+                </span>
+
+                {% else %}
+
+                <span style="color:red;font-weight:bold;">
+                    ⏳ Pending
+                </span>
+
+                {% endif %}
+
+            </p>
+
+            <p>
+                <b>Notes:</b>
+                {{ task.notes }}
+            </p>
+
+        </div>
+
+        <div class="card-buttons">
+
+            {% if task.status != "Completed" %}
+
+            <a
+                href="/complete_task/{{ task.id }}"
+                class="edit-btn"
+            >
+                ✅ Complete
+            </a>
+
+            {% endif %}
+
+            <a
+                href="/delete_task/{{ task.id }}"
+                class="delete-btn"
+                onclick="return confirm('Delete this task?')"
+            >
+                🗑 Delete
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="empty-box">
+
+    <h2>
+        No Tasks Yet
+    </h2>
+
+    <p>
+        Create feeding, medicine, vaccine or hospital reminders.
+    </p>
+
+    <br>
+
+    <a href="/addtask">
+
+        <button class="save-btn">
+
+            ➕ Add First Task
+
+        </button>
+
+    </a>
+
+</div>
+
+{% endif %}
+```
+
+</div>
+
+</body>
+
+</html>

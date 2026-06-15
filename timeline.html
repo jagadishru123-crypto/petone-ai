@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Pet Timeline</title>
+
+<link rel="stylesheet"
+href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<div class="logo">
+🐾
+</div>
+
+<h2>PetOne AI</h2>
+
+<a href="/timeline"
+class="menu-btn white-btn">
+
+🕒 Timeline
+
+</a>
+
+</div>
+
+<div class="main">
+
+<h1 class="page-title">
+
+🕒 Pet Timeline
+
+</h1>
+
+<!-- GROWTH -->
+
+<h2>📈 Growth Records</h2>
+
+{% for record in growth_records %}
+
+<div class="pet-card">
+
+<p>
+
+📅 {{ record.record_date }}
+
+</p>
+
+<p>
+
+⚖ Weight:
+{{ record.weight }} kg
+
+</p>
+
+<p>
+
+📏 Height:
+{{ record.height }} cm
+
+</p>
+
+</div>
+
+{% endfor %}
+
+<br>
+
+<!-- HEALTH -->
+
+<h2>💉 Health Records</h2>
+
+{% for record in health_records %}
+
+<div class="pet-card">
+
+<p>
+
+⚖ Weight:
+{{ record.weight }}
+
+</p>
+
+<p>
+
+🌡 Temperature:
+{{ record.temperature }}
+
+</p>
+
+<p>
+
+📋 Status:
+{{ record.health_status }}
+
+</p>
+
+</div>
+
+{% endfor %}
+
+<br>
+
+<!-- VET -->
+
+<h2>🏥 Vet Visits</h2>
+
+{% for visit in vet_visits %}
+
+<div class="pet-card">
+
+<p>
+
+📅 {{ visit.visit_date }}
+
+</p>
+
+<p>
+
+👨‍⚕️ {{ visit.doctor_name }}
+
+</p>
+
+<p>
+
+📝 {{ visit.reason }}
+
+</p>
+
+</div>
+
+{% endfor %}
+
+<br>
+
+<!-- REMINDERS -->
+
+<h2>⏰ Reminders</h2>
+
+{% for reminder in reminders %}
+
+<div class="pet-card">
+
+<p>
+
+📅 {{ reminder.reminder_date }}
+
+</p>
+
+<p>
+
+📝 {{ reminder.title }}
+
+</p>
+
+<p>
+
+✅ {{ reminder.status }}
+
+</p>
+
+</div>
+
+{% endfor %}
+
+<br>
+
+<!-- PHOTOS -->
+
+<h2>📸 Photos</h2>
+
+<div class="pets-grid">
+
+{% for photo in photos %}
+
+<div class="pet-card">
+
+<img
+src="/static/uploads/{{ photo.image }}"
+style="
+width:100%;
+height:220px;
+object-fit:cover;
+border-radius:15px;
+">
+
+<br><br>
+
+<p>
+
+{{ photo.caption }}
+
+</p>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+```
+<title>Add Reminder - PetOne AI</title>
+
+<link rel="stylesheet" href="/static/style.css">
+```
+
+</head>
+
+<body>
+
+<div class="addpet-container">
+
+```
+<div class="pet-header">
+
+    <div class="pet-avatar">
+        🔔
+    </div>
+
+    <h1>Add Reminder</h1>
+
+    <p>
+        Create vaccine, medicine or vet visit reminders
+    </p>
+
+</div>
+
+<div class="pet-card">
+
+    <form method="POST">
+
+        <div class="pet-grid">
+
+            <div class="field">
+
+                <label>
+                    🐾 Select Pet
+                </label>
+
+                <select
+                    name="pet_id"
+                    required
+                >
+
+                    {% for pet in pets %}
+
+                    <option value="{{ pet.id }}">
+                        {{ pet.pet_name }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    🔔 Reminder Type
+                </label>
+
+                <select
+                    name="reminder_type"
+                    required
+                >
+
+                    <option>
+                        Vaccine
+                    </option>
+
+                    <option>
+                        Medicine
+                    </option>
+
+                    <option>
+                        Vet Visit
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    📝 Title
+                </label>
+
+                <input
+                    type="text"
+                    name="title"
+                    required
+                >
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    📅 Reminder Date
+                </label>
+
+                <input
+                    type="date"
+                    name="reminder_date"
+                    required
+                >
+
+            </div>
+
+            <div class="field full-width">
+
+                <label>
+                    📋 Notes
+                </label>
+
+                <textarea
+                    name="notes"
+                    rows="5"
+                ></textarea>
+
+            </div>
+
+        </div>
+
+        <button
+            type="submit"
+            class="save-btn"
+        >
+            💾 Save Reminder
+        </button>
+
+    </form>
+
+</div>
+```
+
+</div>
+
+</body>
+
+</html>

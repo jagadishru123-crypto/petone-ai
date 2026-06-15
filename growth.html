@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Growth Tracker</title>
+
+<link rel="stylesheet"
+href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<div class="logo">
+🐾
+</div>
+
+<h2>PetOne AI</h2>
+
+<a href="/growth"
+class="menu-btn white-btn">
+
+📈 Growth Tracker
+
+</a>
+
+<a href="/addgrowth"
+class="menu-btn pink-btn">
+
+➕ Add Growth
+
+</a>
+
+</div>
+
+<div class="main">
+
+<h1 class="page-title">
+
+📈 Growth Records
+
+</h1>
+
+{% if records %}
+
+<div class="pets-grid">
+
+{% for record in records %}
+
+<div class="pet-card">
+
+<h3>
+
+📅 {{ record.record_date }}
+
+</h3>
+
+<p>
+
+⚖ Weight:
+{{ record.weight }} kg
+
+</p>
+
+<p>
+
+📏 Height:
+{{ record.height }} cm
+
+</p>
+
+<p>
+
+📝 {{ record.notes }}
+
+</p>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="welcome-card">
+
+<h2>
+
+No Growth Records Yet
+
+</h2>
+
+<p>
+
+Start tracking your pet's growth.
+
+</p>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+
+</html>

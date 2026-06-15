@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Pet Health Dashboard</title>
+
+<link rel="stylesheet"
+      href="/static/style.css">
+```
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+```
+<div class="logo">
+    🐾
+</div>
+
+<h2>PetOne AI</h2>
+
+<a href="/" class="menu-btn white-btn">
+    💬 AI Chat
+</a>
+
+<a href="/mypets" class="menu-btn pink-btn">
+    🐾 My Pets
+</a>
+
+<a href="/tasks" class="menu-btn white-btn">
+    📋 Tasks
+</a>
+
+<a href="/health" class="menu-btn white-btn">
+    🏥 Health
+</a>
+
+<a href="/addhealth" class="menu-btn pink-btn">
+    ➕ Health Record
+</a>
+```
+
+</div>
+
+<div class="main">
+
+```
+<h1 class="page-title">
+    🏥 Pet Health Dashboard
+</h1>
+
+{% if records %}
+
+<div class="pet-container">
+
+    {% for record in records %}
+
+    <div class="pet-card">
+
+        <div class="pet-avatar">
+            🏥
+        </div>
+
+        <div class="pet-name">
+            Health Record
+        </div>
+
+        <div class="pet-info">
+
+            <p>
+                <b>⚖ Weight:</b>
+                {{ record.weight }}
+            </p>
+
+            <p>
+                <b>🌡 Temperature:</b>
+                {{ record.temperature }}
+            </p>
+
+            <p>
+                <b>🤧 Allergies:</b>
+                {{ record.allergies }}
+            </p>
+
+            <p>
+                <b>💊 Medicines:</b>
+                {{ record.medicines }}
+            </p>
+
+            <p>
+                <b>❤️ Status:</b>
+                {{ record.health_status }}
+            </p>
+
+            <p>
+                <b>📝 Notes:</b>
+                {{ record.notes }}
+            </p>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="welcome-card">
+
+    <h2>
+        No Health Records Found
+    </h2>
+
+    <br>
+
+    <p>
+        Add your first pet health record.
+    </p>
+
+    <br>
+
+    <a href="/addhealth">
+
+        <button class="save-btn">
+
+            ➕ Add Health Record
+
+        </button>
+
+    </a>
+<a href="/vet" class="menu-btn white-btn">
+    🏥 Vet Visits
+</a>
+
+<a href="/addvet" class="menu-btn pink-btn">
+    ➕ Vet Visit
+</a>
+
+</div>
+
+{% endif %}
+```
+
+</div>
+
+</body>
+
+</html>
